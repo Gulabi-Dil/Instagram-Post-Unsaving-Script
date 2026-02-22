@@ -1,6 +1,6 @@
 # Instagram-Post-Unsaving-Script
 
-Instagram on IOS has an option to select all saved posts and unsave them all in one go not on Android. I didn't want to manually select the thousands of posts to unsave them so I searched for some tools online and found a browser extension but it was really slow and used to stop running midway or whenever I switched tabs. So I wanted to write my own script to automate the process.
+Instagram on IOS has an option to select all saved posts and unsave them all in one go but not on Android. I didn't want to manually select the thousands of posts to unsave them so I searched for some tools online and found a browser extension but it was really slow and used to stop running midway or whenever I switched tabs. So I wanted to write my own script to automate the process.
 
 ## Features:
 1. Extracts the necessary tokens and values on the fly from the current session itself. So, it doesn't store any user data.
