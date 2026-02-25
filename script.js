@@ -8,6 +8,33 @@ const headers = {
     'X-CSRFToken':getCookie('csrftoken'),
 }
 
+/*
+wrote this to get total number of posts because just fetching using
+fetch('/api/v1/feed/saved/posts/', {headers}).then(r=> r.json()).then(console.log)
+returns only 21. This is because Instagram follows pagination with 21 posts visibale at one time in a page.
+*/
+async function getAllSaved() {
+    let allPosts = [];
+    let maxId = null;
+
+    while (true) {
+        const url = '/api/v1/feed/saved/posts/' + (maxId ? `?max_id=${maxId}` : '');
+        const data = await fetch(url, { headers }).then(r => r.json());
+
+        allPosts = allPosts.concat(data.items ?? []);
+        console.log(`Fetched ${allPosts.length} so far...`);
+
+        if (data.more_available && data.next_max_id) {
+            maxId = data.next_max_id;
+        } else {
+            break;
+        }
+    }
+
+    console.log('Total saved posts:', allPosts.length);
+    return allPosts;
+}
+
 async function unsaveAllPosts() {
     let totalUnsaved = 0;
     let nextMaxId = null;
@@ -46,5 +73,5 @@ async function unsaveAllPosts() {
         await new Promise(resolve => setTimeout(resolve, 1000)) //if instagram logs out, then change to 1500 to prevent breaching the rate limit
     }
 }
-
-unsaveAllPosts()
+await getAllSaved();
+await unsaveAllPosts()
