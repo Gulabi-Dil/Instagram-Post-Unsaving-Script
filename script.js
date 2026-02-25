@@ -3,8 +3,8 @@ async function fetchWithRetry(url, options = {}) {
     while (true) {
         const res = await fetch(url, options);
         if (res.status === 572 || res.status === 429) {
-            console.log('Rate limited, cooling down 2 min...');
-            await new Promise(resolve => setTimeout(resolve, 120000));
+            console.log('Rate limit reached! Cooling down for 3 min...');
+            await new Promise(resolve => setTimeout(resolve, 180000));
             continue;
         }
         return res;
